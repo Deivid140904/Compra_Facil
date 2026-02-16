@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compra Fácil — Loja</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__content">
+      <a class="brand" href="#">
+        <span class="brand__logo">CF</span>
+        <span class="brand__name">Compra Fácil</span>
+      </a>
+
+      <form class="search" id="searchForm">
+        <input id="searchInput" type="search" placeholder="Buscar produtos, marcas e muito mais..." autocomplete="off" />
+        <button type="submit" aria-label="Buscar">🔎</button>
+      </form>
+
+      <button class="cart-btn" id="openCartBtn" aria-label="Abrir carrinho">
+        🛒 <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+
+    <nav class="nav">
+      <div class="container nav__content">
+        <button class="chip active" data-category="Todos">Todos</button>
+        <button class="chip" data-category="Eletrônicos">Eletrônicos</button>
+        <button class="chip" data-category="Casa">Casa</button>
+        <button class="chip" data-category="Moda">Moda</button>
+        <button class="chip" data-category="Beleza">Beleza</button>
+        <button class="chip" data-category="Games">Games</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container layout">
+    <aside class="sidebar">
+      <div class="panel">
+        <h3>Filtros</h3>
+
+        <label class="field">
+          <span>Ordenar</span>
+          <select id="sortSelect">
+            <option value="relevance">Relevância</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="rating-desc">Melhor avaliação</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Preço máximo (R$)</span>
+          <input id="maxPrice" type="number" min="0" placeholder="Ex: 500" />
+        </label>
+
+        <label class="field field--row">
+          <input id="freeShipping" type="checkbox" />
+          <span>Frete grátis</span>
+        </label>
+
+        <label class="field field--row">
+          <input id="inStock" type="checkbox" checked />
+          <span>Somente em estoque</span>
+        </label>
+
+        <button class="btn btn--ghost" id="clearFilters">Limpar filtros</button>
+      </div>
+
+      <div class="panel">
+        <h3>Resumo rápido</h3>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat__label">Produtos</span>
+            <span class="stat__value" id="productsCount">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Com frete grátis</span>
+            <span class="stat__value" id="freeShipCount">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Média de avaliação</span>
+            <span class="stat__value" id="avgRating">0.0</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="hero">
+        <div>
+          <h1>Ofertas do dia</h1>
+          <p>Uma vitrine responsiva com busca, filtro, ordenação e carrinho — tudo em JS puro.</p>
+        </div>
+        <div class="hero__badge">⚡ Promoções</div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar__left">
+          <span class="muted">Mostrando</span>
+          <strong id="resultsInfo">0</strong>
+          <span class="muted">resultados</span>
+        </div>
+        <div class="toolbar__right">
+          <button class="btn" id="seedBtn" title="Gerar mais produtos (demo)">+ Gerar produtos</button>
+        </div>
+      </div>
+
+      <div class="grid" id="productsGrid"></div>
+
+      <div class="empty" id="emptyState" hidden>
+        <h2>Nenhum produto encontrado 😢</h2>
+        <p>Tenta ajustar a busca ou limpar os filtros.</p>
+        <button class="btn" id="emptyClearBtn">Limpar filtros</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL CARRINHO -->
+  <div class="overlay" id="overlay" hidden></div>
+
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer__header">
+      <h2>Carrinho</h2>
+      <button class="icon-btn" id="closeCartBtn" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="drawer__body">
+      <div id="cartItems" class="cart-items"></div>
+
+      <div class="cart-empty" id="cartEmpty" hidden>
+        <p>Seu carrinho está vazio.</p>
+        <small class="muted">Dica: clique em “Adicionar” nos produtos 😉</small>
+      </div>
+    </div>
+
+    <div class="drawer__footer">
+      <div class="total">
+        <span>Total</span>
+        <strong id="cartTotal">R$ 0,00</strong>
+      </div>
+      <button class="btn btn--primary" id="checkoutBtn">Finalizar compra</button>
+      <button class="btn btn--ghost" id="clearCartBtn">Esvaziar carrinho</button>
+      <small class="muted">* Demo: não faz pagamento de verdade.</small>
+    </div>
+  </aside>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" hidden></div>
+
+<footer>
+    <p>2026 - Deivid Gomes</p>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
